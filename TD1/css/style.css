@@ -1,0 +1,22 @@
+.bordureBleue {
+    border: 2px solid blue;
+}
+
+.bordureVerte {
+    border: 2px solid green;
+}
+
+.bordureOrange {
+    border: 2px solid orange;
+}
+
+.bordureRouge {
+    border: 2px solid red;
+}
+
+/* Styles pour la balise section */
+section {
+    width: 5%;
+    margin: 20px;
+    padding: 10px;
+}

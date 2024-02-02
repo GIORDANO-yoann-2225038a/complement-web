@@ -1,38 +1,44 @@
-// Création d'un tableau avec 20 valeurs aléatoires entre -10 et 40
-
 let tableau = [];
 
+// Création d'un tableau avec 20 valeurs aléatoires entre -10 et 40
 for (let i = 0; i < 20; i++) {
     tableau.push(Math.floor(Math.random() * (40 - (-10) + 1)) + (-10));
 }
 
+let historique = document.getElementById('historique');
 
-let valeur = document.getElementById('donnee');
-
-function afficherDelai () {
+function afficherDelai() {
     let index = 0;
 
     setInterval(afficherProchaineDonnee, 1000);
+
     function afficherProchaineDonnee() {
         if (index < tableau.length) {
             let valeurCourante = tableau[index];
-            if (valeurCourante >= -10 && valeurCourante < 0) {
-                valeur.classList.add('bordureBleue');
-            } else if (valeurCourante >= 0 && valeurCourante < 20) {
-                valeur.classList.add('bordureVerte');
-            } else if (valeurCourante >= 20 && valeurCourante < 30) {
-                valeur.classList.add('bordureOrange');
-            } else if (valeurCourante >= 30 && valeurCourante <= 40) {
-                valeur.classList.add('bordureRouge');
-            }
-
-            valeur.textContent = "valeur : " + tableau[index];
+            let temperatureElement = creerTemperatureElement(valeurCourante);
+            historique.appendChild(temperatureElement);
             index++;
         }
     }
 }
 
+function creerTemperatureElement(valeur) {
+    let temperatureElement = document.createElement('article');
+    temperatureElement.textContent = `Température : ${valeur} Degrés Celsius`;
+    temperatureElement.classList.add(getBordureClass(valeur));
+    return temperatureElement;
+}
 
+function getBordureClass(valeur) {
+    if (valeur < 0) {
+        return 'bordureBleue';
+    } else if (valeur < 20) {
+        return 'bordureVerte';
+    } else if (valeur < 30) {
+        return 'bordureOrange';
+    } else {
+        return 'bordureRouge';
+    }
+}
 
-
-window.onload = afficherDelai;
+afficherDelai();

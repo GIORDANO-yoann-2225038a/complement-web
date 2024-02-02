@@ -1,22 +1,31 @@
+section {
+    width: 20%;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
 .bordureBleue {
     border: 2px solid blue;
+    margin-top: 10px;
+
 }
 
 .bordureVerte {
     border: 2px solid green;
+    margin-top: 10px;
+
 }
 
 .bordureOrange {
     border: 2px solid orange;
+    margin-top: 10px;
 }
 
 .bordureRouge {
     border: 2px solid red;
+    margin-top: 10px;
+
 }
 
-/* Styles pour la balise section */
-section {
-    width: 5%;
-    margin: 20px;
-    padding: 10px;
-}
+

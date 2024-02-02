@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TD2</title>
+  <link href="css/TD2.css" rel="stylesheet">
+  <style>
+    /* Ajoutez votre CSS pour les bordures ici */
+
+    .contenuOnglet {
+      display: none;
+    }
+
+    .contenuOnglet.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div id="onglets">
+  <button onclick="changerOnglet('ongletCapteur')">Capteur</button>
+  <button onclick="changerOnglet('ongletHistorique')">Historique</button>
+</div>
+
+<div id="ongletCapteur" class="contenuOnglet">
+  <h2>Capteur de Température</h2>
+  <!-- Le contenu du capteur sera ajouté ici -->
+</div>
+
+<div id="ongletHistorique" class="contenuOnglet">
+  <section aria-label="Historique des températures">
+    <h2>Historique des températures</h2>
+    <div id="alert-live-region" aria-live="assertive" role="alert"></div>
+    <div id="historique" aria-live="polite" role="log" aria-relevant="additions"></div>
+  </section>
+</div>
+
+<script src="js/TD2.js"></script>
+
+</body>
+</html>

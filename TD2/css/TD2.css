@@ -1,0 +1,60 @@
+section {
+    width: 20%;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.bordureBleue {
+    border: 2px solid blue;
+    margin-top: 10px;
+
+}
+
+.bordureVerte {
+    border: 2px solid green;
+    margin-top: 10px;
+
+}
+
+.bordureOrange {
+    border: 2px solid orange;
+    margin-top: 10px;
+}
+
+.bordureRouge {
+    border: 2px solid red;
+    margin-top: 10px;
+
+}
+
+#onglets {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #eaeaea;
+}
+
+.contenuOnglet {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.contenuOnglet h2 {
+    color: #333;
+}
+
+
+
+

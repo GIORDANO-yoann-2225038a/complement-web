@@ -4,7 +4,8 @@ for (let i = 0; i < 20; i++) {
     tableau.push(Math.floor(Math.random() * (40 - (-10) + 1)) + (-10));
 }
 
-let historique = document.getElementById('historique');
+let ongletCapteur = document.getElementById('ongletCapteur');
+let ongletHistorique = document.getElementById('ongletHistorique');
 
 function afficherDelai() {
     let index = 0;
@@ -16,14 +17,13 @@ function afficherDelai() {
             let valeurCourante = tableau[index];
             let temperatureElement = creerTemperatureElement(valeurCourante);
 
-            // Ajout des messages en fonction de la valeur
-            if (valeurCourante < 0) {
-                afficherMessage(temperatureElement, "Brrrrrrr, un peu froid ce matin, mets ta cagoule !");
-            } else if (valeurCourante > 30) {
-                afficherMessage(temperatureElement, "Caliente ! Vamos a la playa, ho hoho hoho !!");
-            }
+            ongletCapteur.innerHTML = ''; // Efface le contenu précédent
+            ongletCapteur.appendChild(temperatureElement);
 
-            historique.appendChild(temperatureElement);
+            // Ajoute l'historique dans le deuxième onglet
+            let historiqueElement = creerTemperatureElement(valeurCourante);
+            ongletHistorique.appendChild(historiqueElement);
+
             index++;
         }
     }
@@ -36,10 +36,12 @@ function creerTemperatureElement(valeur) {
     return temperatureElement;
 }
 
-function afficherMessage(parentElement, message) {
-    let messageElement = document.createElement('p');
-    messageElement.textContent = message;
-    parentElement.appendChild(messageElement);
+function changerOnglet(ongletId) {
+    // Désactive tous les onglets et cache leur contenu
+    document.querySelectorAll('.contenuOnglet').forEach(onglet => onglet.classList.remove('active'));
+
+    // Active l'onglet sélectionné et affiche son contenu
+    document.getElementById(ongletId).classList.add('active');
 }
 
 function getBordureClass(valeur) {

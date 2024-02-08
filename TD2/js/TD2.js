@@ -6,7 +6,7 @@ for (let i = 0; i < 20; i++) {
 
 let ongletCapteur = document.getElementById('ongletCapteur');
 let ongletHistorique = document.getElementById('ongletHistorique');
-
+let alertRegion = document.getElementById('alert-live-region');
 function afficherDelai() {
     let index = 0;
 
@@ -17,13 +17,13 @@ function afficherDelai() {
             let valeurCourante = tableau[index];
             let temperatureElement = creerTemperatureElement(valeurCourante);
 
-            ongletCapteur.innerHTML = ''; // Efface le contenu précédent
+            ongletCapteur.innerHTML = '';
             ongletCapteur.appendChild(temperatureElement);
 
-            // Ajoute l'historique dans le deuxième onglet
             let historiqueElement = creerTemperatureElement(valeurCourante);
             ongletHistorique.appendChild(historiqueElement);
 
+            afficherAlerte(valeurCourante);
             index++;
         }
     }
@@ -37,10 +37,7 @@ function creerTemperatureElement(valeur) {
 }
 
 function changerOnglet(ongletId) {
-    // Désactive tous les onglets et cache leur contenu
     document.querySelectorAll('.contenuOnglet').forEach(onglet => onglet.classList.remove('active'));
-
-    // Active l'onglet sélectionné et affiche son contenu
     document.getElementById(ongletId).classList.add('active');
 }
 
@@ -53,6 +50,14 @@ function getBordureClass(valeur) {
         return 'bordureOrange';
     } else {
         return 'bordureRouge';
+    }
+}
+
+function afficherAlerte(valeur) {
+    if (valeur < 0 || valeur > 30) {
+        alertRegion.textContent = "Alerte ! Température extrême détectée.";
+    } else {
+        alertRegion.textContent = "";
     }
 }
 

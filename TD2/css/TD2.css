@@ -1,5 +1,5 @@
 section {
-    width: 20%;
+    width: 50%;
     margin: 20px auto;
     padding: 20px;
     text-align: center;
@@ -7,43 +7,45 @@ section {
 
 .bordureBleue {
     border: 2px solid blue;
-    margin-top: 10px;
+    margin: 10px auto;
+    width: 45%;
 
 }
 
 .bordureVerte {
     border: 2px solid green;
-    margin-top: 10px;
+    width: 45%;
+    margin: 10px auto;
 
 }
 
 .bordureOrange {
     border: 2px solid orange;
-    margin-top: 10px;
+    width: 45%;
+    margin: 10px auto;
+
 }
 
 .bordureRouge {
     border: 2px solid red;
-    margin-top: 10px;
+    width: 45%;
+    margin: 10px auto;
 
 }
 
 #onglets {
     display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
 button {
     padding: 10px;
-    margin: 0;
     border: 1px solid #ccc;
     background-color: #f8f8f8;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #eaeaea;
-}
 
 .contenuOnglet {
     display: none;
@@ -51,10 +53,12 @@ button:hover {
     border: 1px solid #ccc;
 }
 
-.contenuOnglet h2 {
-    color: #333;
+article {
+    text-align: center;
 }
 
-
-
+#ongletCapteur, #ongletHistorique{
+    width: 40%;
+    margin: 5px auto;
+}
 

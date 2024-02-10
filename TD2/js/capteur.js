@@ -1,61 +1,32 @@
-function recupererDonneesCapteur() {
+// capteur.js
+
+// Fonction pour récupérer les données du capteur via une requête AJAX
+function recupererDonneesCapteurAJAX() {
     return fetch('https://hothothot.dog/api/capteurs/exterieur')
         .then(response => response.json())
-        .then(data => data.valeur)
+        .then(data => {
+            afficherDonneesCapteur(data.valeur);
+            stockerDonneesCoteServeur(data.valeur);
+            alimenterHistorique(data.valeur);
+        })
         .catch(error => {
             console.error('Erreur lors de la récupération des données du capteur:', error);
-            return null;
         });
 }
 
-function alimenterHistorique(valeur) {
-    let historiqueElement = creerTemperatureElement(valeur);
-    let ongletHistorique = document.getElementById('ongletHistorique');
-    ongletHistorique.appendChild(historiqueElement);
+// Fonction pour afficher les données du capteur
+function afficherDonneesCapteur(valeur) {
+    let temperatureElement = creerTemperatureElement(valeur);
+    let ongletCapteur = document.getElementById('ongletCapteur');
+    ongletCapteur.innerHTML = '';
+    ongletCapteur.appendChild(temperatureElement);
+    afficherAlerte(valeur);
 }
 
-function creerTemperatureElement(valeur) {
-    let temperatureElement = document.createElement('article');
-    temperatureElement.textContent = `Température : ${valeur} Degrés Celsius`;
-    temperatureElement.classList.add(getBordureClass(valeur));
-    return temperatureElement;
+// Fonction pour stocker les données du capteur côté serveur
+function stockerDonneesCoteServeur(valeur) {
+    // Code pour stocker les données côté serveur
 }
 
-function getBordureClass(valeur) {
-    if (valeur < 0) {
-        return 'bordureBleue';
-    } else if (valeur < 20) {
-        return 'bordureVerte';
-    } else if (valeur < 30) {
-        return 'bordureOrange';
-    } else {
-        return 'bordureRouge';
-    }
-}
-
-function afficherAlerte(valeur) {
-    let alertRegion = document.getElementById('alert-live-region');
-    if (valeur < 0 || valeur > 30) {
-        alertRegion.textContent = "Alerte ! Température extrême détectée.";
-    } else {
-        alertRegion.textContent = "";
-    }
-}
-
-function afficherDelai() {
-    setInterval(() => {
-        recupererDonneesCapteur()
-            .then(valeur => {
-                if (valeur !== null) {
-                    let temperatureElement = creerTemperatureElement(valeur);
-                    let ongletCapteur = document.getElementById('ongletCapteur');
-                    ongletCapteur.innerHTML = '';
-                    ongletCapteur.appendChild(temperatureElement);
-                    afficherAlerte(valeur);
-                    alimenterHistorique(valeur);
-                }
-            });
-    }, 1000);
-}
-
-afficherDelai();
+// Export de la fonction de récupération des données du capteur
+export { recupererDonneesCapteurAJAX };

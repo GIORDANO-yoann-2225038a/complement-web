@@ -1,32 +1,62 @@
-// capteur.js
+// Fonction pour effectuer une requête AJAX générique
+function effectuerRequeteAJAX(url, method, data) {
+    const options = {
+        method: method,
+        headers: {
+        }
+    };
 
-// Fonction pour récupérer les données du capteur via une requête AJAX
-function recupererDonneesCapteurAJAX() {
-    return fetch('https://hothothot.dog/api/capteurs/exterieur')
-        .then(response => response.json())
-        .then(data => {
-            afficherDonneesCapteur(data.valeur);
-            stockerDonneesCoteServeur(data.valeur);
-            alimenterHistorique(data.valeur);
+    if (data) {
+        options.body = JSON.stringify(data);
+    }
+
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la requête HTTP : ' + response.statusText);
+            }
+            return response.json();
         })
         .catch(error => {
-            console.error('Erreur lors de la récupération des données du capteur:', error);
+            console.error('Erreur lors de la requête HTTP :', error);
+            throw error;
         });
 }
 
-// Fonction pour afficher les données du capteur
-function afficherDonneesCapteur(valeur) {
-    let temperatureElement = creerTemperatureElement(valeur);
-    let ongletCapteur = document.getElementById('ongletCapteur');
-    ongletCapteur.innerHTML = '';
-    ongletCapteur.appendChild(temperatureElement);
-    afficherAlerte(valeur);
+// Fonction pour récupérer les données du capteur via une requête AJAX
+function recupererDonneesCapteurAJAX() {
+    return effectuerRequeteAJAX('https://hothothot.dog/api/capteurs/exterieur', 'GET')
+        .then(data => {
+            return data.valeur;
+        });
 }
 
-// Fonction pour stocker les données du capteur côté serveur
+// Fonction pour stocker les données du capteur côté serveur via une requête AJAX
 function stockerDonneesCoteServeur(valeur) {
-    // Code pour stocker les données côté serveur
+    return effectuerRequeteAJAX('https://hothothot.dog/api/capteurs/exterieur', 'POST', { valeur: valeur })
+        .then(() => {
+            console.log('Données stockées avec succès côté serveur.');
+        });
 }
 
-// Export de la fonction de récupération des données du capteur
-export { recupererDonneesCapteurAJAX };
+// Fonction pour alimenter l'historique avec des données provenant d'un fichier JSON côté serveur
+function alimenterHistoriqueAvecJSON() {
+
+    const donneesJSON = [
+        { valeur: 25 },
+        { valeur: 28 },
+        { valeur: 30 },
+        { valeur: 32 }
+    ];
+
+    const historiqueElement = document.getElementById('historique');
+    historiqueElement.innerHTML = ''; // Efface le contenu précédent
+
+    donneesJSON.forEach(donnee => {
+        let nouvelleEntree = document.createElement('div');
+        nouvelleEntree.textContent = `Nouvelle valeur: ${donnee.valeur} Degrés Celsius`;
+        historiqueElement.appendChild(nouvelleEntree);
+    });
+}
+
+export { recupererDonneesCapteurAJAX, stockerDonneesCoteServeur, alimenterHistoriqueAvecJSON };

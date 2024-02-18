@@ -1,10 +1,15 @@
-// TD2.js
-
-import { recupererDonneesCapteurAJAX } from './capteur.js';
+import { recupererDonneesCapteurAJAX, stockerDonneesCoteServeur, alimenterHistoriqueAvecJSON } from './capteur.js';
 
 let tableau = [];
 
-// Fonction pour afficher les données périodiquement
+for (let i = 0; i < 20; i++) {
+    tableau.push(Math.floor(Math.random() * (40 - (-10) + 1)) + (-10));
+}
+
+let ongletCapteur = document.getElementById('ongletCapteur');
+let ongletHistorique = document.getElementById('ongletHistorique');
+let alertRegion = document.getElementById('alert-live-region');
+
 function afficherDelai() {
     let index = 0;
 
@@ -15,18 +20,18 @@ function afficherDelai() {
             let valeurCourante = tableau[index];
             let temperatureElement = creerTemperatureElement(valeurCourante);
 
-            let ongletCapteur = document.getElementById('ongletCapteur');
             ongletCapteur.innerHTML = '';
             ongletCapteur.appendChild(temperatureElement);
 
-            alimenterHistorique(valeurCourante);
+            let historiqueElement = creerTemperatureElement(valeurCourante);
+            ongletHistorique.appendChild(historiqueElement);
+
             afficherAlerte(valeurCourante);
             index++;
         }
     }
 }
 
-// Fonction pour créer un élément de température
 function creerTemperatureElement(valeur) {
     let temperatureElement = document.createElement('article');
     temperatureElement.textContent = `Température : ${valeur} Degrés Celsius`;
@@ -34,13 +39,11 @@ function creerTemperatureElement(valeur) {
     return temperatureElement;
 }
 
-// Fonction pour changer d'onglet
 function changerOnglet(ongletId) {
     document.querySelectorAll('.contenuOnglet').forEach(onglet => onglet.classList.remove('active'));
     document.getElementById(ongletId).classList.add('active');
 }
 
-// Fonction pour obtenir la classe de bordure
 function getBordureClass(valeur) {
     if (valeur < 0) {
         return 'bordureBleue';
@@ -53,9 +56,7 @@ function getBordureClass(valeur) {
     }
 }
 
-// Fonction pour afficher une alerte en fonction de la valeur
 function afficherAlerte(valeur) {
-    let alertRegion = document.getElementById('alert-live-region');
     if (valeur < 0 || valeur > 30) {
         alertRegion.textContent = "Alerte ! Température extrême détectée.";
     } else {
@@ -63,10 +64,19 @@ function afficherAlerte(valeur) {
     }
 }
 
-// Fonction pour alimenter l'historique
-function alimenterHistorique(valeur) {
-    // Code pour alimenter l'historique
+recupererDonneesCapteurAJAX().then(valeur => {
+    afficherDonneesCapteur(valeur);
+    changerOnglet('ongletCapteur');
+});
+
+
+function afficherDonneesCapteur(valeur) {
+    let temperatureElement = creerTemperatureElement(valeur);
+    let ongletCapteur = document.getElementById('ongletCapteur');
+    ongletCapteur.innerHTML = '';
+    ongletCapteur.appendChild(temperatureElement);
+    afficherAlerte(valeur);
 }
 
-// Export de la fonction pour afficher les données périodiquement
-export { afficherDelai, changerOnglet };
+afficherDelai();
+

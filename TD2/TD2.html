@@ -17,10 +17,10 @@
 </head>
 <body>
 
-<div id="onglets">
+<div id="onglet">
   <button onclick="changerOnglet('ongletCapteur')">Capteur</button>
   <button onclick="changerOnglet('ongletHistorique')">Historique</button>
-  <button onclick="changerOnglet('ongletMonCompte')">Mon Compte</button> <!-- Nouvel onglet -->
+  <button onclick="changerOnglet('ongletMonCompte')">Mon Compte</button>
 </div>
 
 <div id="ongletCapteur" class="contenuOnglet">
@@ -41,32 +41,26 @@
   <div id="ongletMonCompte" class="contenuOnglet">
     <h2>Mon Compte</h2>
     <div id="infosCompte">
-      <!-- Affichage des informations du compte -->
-      <p>Nom: John Doe</p>
-      <p>Email: john.doe@example.com</p>
-      <!-- Autres informations de compte -->
+      <p>Nom: john bee</p>
+      <p>Email: exemple@example.com</p>
     </div>
     <div id="parametresCompte">
-      <!-- Affichage des paramètres du compte -->
       <h3>Paramètres</h3>
       <ul>
         <li><a href="#">Modifier les informations personnelles</a></li>
         <li><a href="#">Paramètres de sécurité</a></li>
-        <!-- Autres liens vers les paramètres -->
       </ul>
     </div>
     <div id="notifications">
-      <!-- Affichage des notifications du compte -->
       <h3>Notifications</h3>
-      <!-- Affichage des préférences de notification ou des notifications récentes -->
     </div>
   </div>
 
 
 </div>
 
-<script src="js/TD2.js"></script>
-<script src="js/capteur.js"></script>
+<script src="js/TD2.js" type="module"></script>
+<script src="js/capteur.js" type="module"></script>
 
 </body>
 </html>
